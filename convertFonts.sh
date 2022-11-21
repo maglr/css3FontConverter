@@ -300,38 +300,6 @@ toTTF () {
 	
 }
 
-#.. converts a font to EOT format.  Uses EOTFAST if possible, fallbacks
-#   to TTF2EOT otherwise.  Note that that TTF2EOT is used if EOTFAST is
-#   not installed, or if EOTFAST fails (which sometimes happens).
-
-toEOT () {
-	which 'EOTFAST-1' > /dev/null
-	FOUND="$?"
-	
-		
-	if [ "$FOUND" = "0" -a  "$USE_TTF2EOT" =	"" ]
-	then
-		echo "(Using EOTFAST)"
-		EOTFAST-1 $1 $FILE_STUB.eot
-		SUCCESS="$?"
-	
-		if [ "$SUCCESS" != "0" ]
-		then
-			echo "EOTFAST failed.  Using ttf2eot instead"
-		fi
-	fi
-	
-	
-	if [ "$FOUND" != "0" -o "$SUCCESS" != "0" -o "$USE_TTF2EOT" != "" ]
-	then
-		echo "(Using ttf2eot)"
-		FILE_STUB=`echo $NEW_FILE |
-			sed "s/\.[tT][tT][fF]$//" |
-			sed "s/\.[oO][tT][fF]$//"`
-		ttf2eot $1 > $FILE_STUB.eot
-	fi
-}
-
 #.. converts a font to SVG.  Perhaps we should remove the BATIK
 #   dependency.
 toSVG() {
@@ -608,17 +576,7 @@ do
 			FILE_STUB="$FONT_PREFIX$FILE_STUB"
 			NEW_FILE="$FONT_PREFIX$NEW_FILE"
 		fi
-		
-		
-
-		if [ ! -f $FILE_STUB.eot ]
-		then
-			echo "Converting $FILE_STUB to eot ($NEW_FILE)"
-			toEOT $NEW_FILE 
-		else 
-			echo "$FILE_STUB.eot exists, skipping ..."
-		fi
-	
+			
 		#.. do not convert a font to svg format if we are using
 		#   --use-font-weight, since several SVG declarations of
 		#   the same font will not work in iOS < 4.2.
