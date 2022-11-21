@@ -11,7 +11,7 @@
 ##                     change.                                          #
 #########################################################################
 
-# The path should contain the directories where EOTFAST-1.EXE, ttf2eot,
+# The path should contain the directories where
 # fontforge, ttfautohint and all the scripts in the @Font-Face Contruction Set reside.
 # Uncomment the line below with the right directories.  Remember the 
 # $PATH at the beginning of the string, or the script will forget what
@@ -31,7 +31,6 @@ USE_FONT_STRETCH=`echo "$ARGS" | grep '\--use-font-stretch'`
 DO_AUTOHINT=`echo "$ARGS" | grep '\--autohint'`
 OUTPUT=`echo "$ARGS" | grep '\--output'`
 USE_FONT_PREFIX=`echo "$ARGS" | grep '\--use-font-prefix'`
-USE_TTF2EOT=`echo "$ARGS" | grep '\--use-ttf2eot'`
 
 
 CLEANUP=`echo "$ARGS" | grep '\--clean'` 
@@ -252,7 +251,7 @@ Are you *sure* you want to do this [y/N]?"
   if [ "$ANS" = "y" -o "$ANS" = "Y" ]
   then
     echo "Removing files."
-    rm -r *.eot *.svg *.woff *.woff2  old *.css hinted-*.ttf 2> /dev/null
+    rm -r *.svg *.woff *.woff2  old *.css hinted-*.ttf 2> /dev/null
     
    
     
@@ -817,7 +816,7 @@ do
 		RULE="
 @font-face {
   font-family: '$FONTNAME';
-  src: url('$i.eot?') format('eot'),"
+  src: "
 
 if [ "$HAS_WOFF2_COMPRESS" = "0" -a -f "$i.woff" ]
 then
@@ -853,7 +852,7 @@ RULE="$RULE
     echo "
 @font-face {
   font-family: '$FONTNAME';
-  src: url('$i.eot?') format('eot')," >> $STYLESHEETFILE
+  src: " >> $STYLESHEETFILE
 
   if [ "$HAS_WOFF2_COMPRESS" = "0" -a -f "$i.woff2" ]
   then
