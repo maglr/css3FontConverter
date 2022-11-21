@@ -201,8 +201,6 @@ Where: - [fontfilelist] is a space separated list of True Type (.ttf) or
          
 This script uses the following programs to do the heavy listing.
   - Fontforge:      http://fontforge.sourceforge.net/
-  - EOTFAST:        http://eotfast.com/
-  - ttf2eot:        http://code.google.com/p/ttf2eot/)
   - sfnt2woff:      http://people.mozilla.com/~jkew/woff/
   - ttfautohint:    http://www.freetype.org/ttfautohint/
   - woff2_compress: http://code.google.com/p/font-compression-reference/w/list
@@ -478,23 +476,6 @@ then
 		echo $TTFAUTOHINT_096_HIGHER
 	fi
 fi 
-
-	
-
-
-#.. checks for binaries that convert to EOT format.
-HAS_EOT_SUPPORT=1
-for i in EOTFAST-1 ttf2eot 
-do
-	which "$i" > /dev/null 2> /dev/null
-	HAS_EOT_SUPPORT=`expr $? \* $HAS_EOT_SUPPORT`
-done
-
-if [ "$HAS_EOT_SUPPORT" = "1" ]
-then
-	echo "Error: EOTFAST and/or ttf2eot is not installed. Bailing." 1>&2
-	exit 4
-fi
 
 if [ -d old ]
 then
