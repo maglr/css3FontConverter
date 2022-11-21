@@ -51,7 +51,7 @@ fi
 FONT_PREFIX="`echo $USE_FONT_PREFIX | awk -F'=' '{print $2}'`"
 
 #.. is 0 if has this binary, non-zero otherwise 
-HAS_WOFF2_COMPRESS=`which 'woff2_compress' > /dev/null; echo $?`
+HAS_WOFF2_COMPRESS=`command -v 'woff2_compress' > /dev/null; echo $?`
 
 if [ "$FONT_PREFIX" = "" -a "$DO_AUTOHINT" != "" ] 
 then
@@ -131,11 +131,11 @@ fi
 
 #.. check for fontforge
 FONTFORGE_EXT=""
-FONTFORGE=`which fontforge 2> /dev/null`
+FONTFORGE=`command -v fontforge 2> /dev/null`
 if [ "$?" != "0" ]
 then 
 	FONTFORGE_EXT="bat"
-	FONTFORGE=`which fontforge.bat 2> /dev/null`
+	FONTFORGE=`command -v fontforge.bat 2> /dev/null`
 	
 	if [ "$?" != "0" ]
 	then
@@ -442,7 +442,7 @@ fi
 # .. check to make sure all packages are installed
 for i in sfnt2woff java 
 do
-	which "$i" > /dev/null 2> /dev/null
+	command -v "$i" > /dev/null 2> /dev/null
 	if [ "$?" != "0" ]
 	then
 		echo "Error: Package $i is not installed.  Bailing" 1>&2
@@ -453,7 +453,7 @@ done
 # .. check for ttfautohint is installed if --autohint option is set
 if [ "$DO_AUTOHINT" != "" ]
 then
-	which $AUTOHINTER > /dev/null 2> /dev/null
+	command -v $AUTOHINTER > /dev/null 2> /dev/null
 	if [ "$?" != "0" ]
 	then
 		echo "Error: Package $AUTOHINTER is not installed. You cannot use the 
